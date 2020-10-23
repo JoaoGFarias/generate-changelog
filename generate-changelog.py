@@ -69,7 +69,7 @@ def set_fixVersions(issue, version):
     try:
         issue.update(fields={'fixVersions': fixVersions})
     except JIRAError as e:
-        print(e.status_code, e.text, issue.key)
+        print((e.status_code, e.text, issue.key))
 
 def scan_for_tickets():
     issue_pattern = '{}-[\d]+'.format(project_format)
@@ -104,9 +104,9 @@ for project in projects:
             break
 
     if(version_exists):
-        print('version ' + release_version + ' in project ' + project + ' exists - dont create one\n')
+        print(('version ' + release_version + ' in project ' + project + ' exists - dont create one\n'))
     else:
-        print('version ' + release_version + ' in project ' + project + ' not found - creating it!\n')
+        print(('version ' + release_version + ' in project ' + project + ' not found - creating it!\n'))
         version = jira.create_version(release_version, project_version)
 
 issues = []
@@ -118,7 +118,7 @@ for issueCode in issues:
     try:
         issue = jira.issue(issueCode)
     except JIRAError as e:
-        print(issueCode + "not found")
+        print((issueCode + "not found"))
     set_fixVersions(issue, version)
     if issue.fields.issuetype.name in bugTypes:
         bugs.append(issue)
